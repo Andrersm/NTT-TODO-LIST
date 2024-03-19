@@ -1,0 +1,18 @@
+.card {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .list-group {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .card-header {
+    flex-shrink: 0; 
+  }
+  
+  .list-group-item {
+    flex-shrink: 0; 
+  }

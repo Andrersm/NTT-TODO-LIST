@@ -1,0 +1,72 @@
+ <div class="text-center">
+    <img src="assets/nttlogo.png" alt="NTT Todo List Logo" class="logo">
+  </div>
+
+<div class="container text-center mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h3>Pendentes</h3>
+          </div>
+          <ul class="list-group list-group-flush" *ngIf="tasks.length; else noPendingTasks">
+            <li class="list-group-item" *ngFor="let task of tasks">
+              <p class="h6">{{ formatTaskName(task.name) }}
+                <button type="button" class="btn btn-sm btn-outline-primary float-end ms-2" (click)="nextStep(task.id)">Próximo Passo</button>
+                <button type="button" class="btn btn-sm btn-outline-danger float-end" (click)="deleteTask(task.id, 'pending')">Excluir</button>
+              </p>  
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <h3>Em Execução</h3>
+          </div>
+          <ul class="list-group list-group-flush" *ngIf="tasksDoing.length; else noDoingTasks">
+            <li class="list-group-item" *ngFor="let task of tasksDoing">
+              <p class="h6">{{ formatTaskName(task.name) }}
+                <button type="button" class="btn btn-sm btn-outline-info float-end ms-2" (click)="nextStep(task.id)">Próximo Passo</button>
+                <button type="button" class="btn btn-sm btn-outline-danger float-end" (click)="deleteTask(task.id, 'doing')">Excluir</button>
+              </p> 
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            <h3>Concluídas</h3>
+          </div>
+          <ul class="list-group list-group-flush" *ngIf="tasksDone.length; else noDoneTasks">
+            <li class="list-group-item" *ngFor="let task of tasksDone">
+              <p class="h6">{{ formatTaskName(task.name) }}
+                <button type="button" class="btn btn-sm btn-outline-danger float-end" (click)="deleteTask(task.id, 'done')">Excluir</button>
+              </p> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noPendingTasks>
+    <div class="text-center p-2">Mantenha-se organizado 😅.</div>
+  </ng-template>
+
+  <ng-template #noDoingTasks>
+    <div class="text-center p-2">Você completou todas tarefas😎.</div>
+  </ng-template>
+
+  <ng-template #noDoneTasks>
+    <div class="text-center p-2">Conclua suas tarefas 🏃‍♂️🏃‍♂️🏃‍♂️.</div>
+  </ng-template>
+
+  <div class="text-center mt-4">
+    <input class="form-control" style="max-width: 400px; margin: auto;"
+           [(ngModel)]="newTaskName" 
+           placeholder="Adicione uma nova tarefa"
+           (keyup.enter)="addTask()">
+    <button type="button" class="btn btn-primary mt-2" 
+            (click)="addTask()">Adicionar Tarefa</button>
+</div>
